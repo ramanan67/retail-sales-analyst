@@ -141,6 +141,35 @@ python main.py --help
 
 ---
 
+## 🌐 Launch the Interactive Website
+
+### Option A: Streamlit Data Science Web App
+Run the interactive web app locally with dynamic filters, KPI tiles, custom dataset upload, and data explorer:
+```bash
+python -m streamlit run app.py
+```
+This will automatically launch the website in your browser at `http://localhost:8501`.
+
+### Option B: Standalone Web Dashboard (GitHub Pages Ready)
+Open `docs/index.html` directly in any web browser:
+```powershell
+Start-Process .\docs\index.html
+```
+Or serve it locally:
+```bash
+python -m http.server 8000 --directory docs
+```
+
+#### 🚀 Publish to GitHub Pages (Live on the Internet)
+Your repository is pre-configured to host this website for free on GitHub Pages:
+1. Open your repository settings: [github.com/ramanan67/retail-sales-analyst/settings/pages](https://github.com/ramanan67/retail-sales-analyst/settings/pages)
+2. Under **Build and deployment > Branch**, select **`main`** branch and the **`/docs`** folder.
+3. Click **Save**.
+4. In ~60 seconds, your site will be live at:
+   👉 `https://ramanan67.github.io/retail-sales-analyst/`
+
+---
+
 ## 🧪 Running Unit Tests
 
 Run the test suite with `pytest`:
