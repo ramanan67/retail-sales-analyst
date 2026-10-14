@@ -28,13 +28,16 @@ retail_sales_analytics/
 │   └── processed/                 # Cleaned & feature-engineered data (.csv and .xlsx)
 │
 ├── src/
-│   ├── __init__.py                # Package initialization
-│   ├── config.py                  # Paths, thresholds, color palettes, and plot styling
-│   ├── data_loader.py             # Ingestion with fallback resolution and schema validation
-│   ├── data_processor.py          # Data cleaning, feature engineering, and segment extractors
-│   ├── analytics.py               # Vector math (NumPy), aggregations, KPIs, and outlier detection
-│   ├── visualizer.py              # Publication-quality charts (300 DPI) using Matplotlib & Seaborn
-│   └── reporter.py                # Automated Executive Markdown & interactive HTML dashboard generator
+│   └── retail_sales_analytics/    # The importable Python module package
+│       ├── __init__.py            # Clean top-level API exports
+│       ├── __main__.py            # Direct execution entry point (python -m retail_sales_analytics)
+│       ├── cli.py                 # CLI commands (retail-sales, retail-analytics)
+│       ├── config.py              # Configurations, thresholds, and plot styling
+│       ├── data_loader.py         # Ingestion with fallback resolution and schema validation
+│       ├── data_processor.py      # Data cleaning, feature engineering, and segment extractors
+│       ├── analytics.py           # Vector math (NumPy), aggregations, KPIs, and outlier detection
+│       ├── visualizer.py          # Publication-quality charts (300 DPI) using Matplotlib & Seaborn
+│       └── reporter.py            # Automated Executive Markdown & interactive HTML dashboard generator
 │
 ├── reports/
 │   ├── figures/                   # Exported high-res visualizations (PNG)
@@ -51,49 +54,72 @@ retail_sales_analytics/
 │   ├── test_processor.py          # Unit tests for transformations, filters, and feature engineering
 │   └── test_analytics.py          # Unit tests for NumPy statistics, aggregations, and KPIs
 │
-├── main.py                        # CLI entry point with configurable arguments
-├── requirements.txt               # Project dependencies
+├── main.py                        # Convenience runner script
+├── pyproject.toml                 # Standard PEP 518/621 packaging metadata & console entry points
+├── setup.py                       # Setuptools configuration
+├── requirements.txt               # Dependencies
 ├── README.md                      # Project documentation
 └── .gitignore                     # Git ignore rules
 ```
 
 ---
 
-## 🚀 Key Improvements Over Original Script
+## 📦 Python Module Installation & Usage
 
-| Feature | Original Script | Modular Project |
-| :--- | :--- | :--- |
-| **Architecture** | Monolithic linear script | Modular MVC-style architecture (`src/` modules) |
-| **Path Handling** | Hardcoded Windows path | Configurable paths with automatic fallbacks and CLI override (`--file`) |
-| **Data Validation** | None (crashes if columns missing) | Strict schema verification (`validate_schema`) |
-| **Visualizations** | Simple `plt.show()` popups | High-res 300 DPI exports to `reports/figures/`, currency formatters, 7-day rolling average |
-| **Bug Fixes** | Pie chart mislabeled with scatter plot title | Donut chart with accurate percentages and center callout |
-| **Testing** | None | Full test suite (`pytest`) covering 100% of calculations |
-| **Reporting** | Raw console prints | Generated Markdown report + interactive HTML executive dashboard |
-| **Feature Engineering** | In-place mutations | Immutable pipeline generating `Net_Profit`, `Profit_Margin_Pct`, `Order_Label`, and date features |
+You can install this project as an editable Python package/module into your environment:
 
----
+```bash
+pip install -e .
+```
 
-## 🛠️ Installation & Setup
+Once installed, you can import and use it in **any** Python script, notebook, or application:
 
-1. **Clone or navigate to the project directory:**
-   ```bash
-   cd "C:\Users\raman\.gemini\antigravity\scratch\retail_sales_analytics"
-   ```
+```python
+import retail_sales_analytics as rsa
 
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+# 1. Ingest dataset with schema validation
+df = rsa.load_data()
+
+# 2. Execute cleaning & feature engineering (Net_Profit, Profit_Margin_Pct, Order_Label)
+df_clean = rsa.process_pipeline(df)
+
+# 3. Compute business KPIs and vector metrics
+analytics = rsa.RetailAnalytics(df_clean)
+kpis = analytics.get_kpi_summary()
+print(f"Total Revenue: ₹{kpis['total_revenue']:,.2f}")
+print(f"Profit Margin: {kpis['overall_profit_margin_pct']}%")
+
+# 4. Filter targeted segments
+electronics = rsa.get_category_subset(df_clean, "Electronics")
+bulk_upi = rsa.get_bulk_orders_by_payment(df_clean, min_quantity=5, payment_method="UPI")
+
+# 5. Generate high-res visual charts & executive reports
+visualizer = rsa.RetailVisualizer(df_clean)
+visualizer.generate_all_charts()
+
+reporter = rsa.ReportGenerator(analytics)
+reporter.save_report()
+```
 
 ---
 
 ## 💻 CLI Usage
 
-### Run Full Pipeline
-Executes data loading, cleaning, feature engineering, vector math, aggregations, saves processed datasets, exports 5 charts, and creates the reports:
+### Run via Module Execution
+```bash
+python -m retail_sales_analytics
+```
+
+### Run via Root Script
 ```bash
 python main.py
+```
+
+### Run via Installed Console Command
+```bash
+retail-sales
+# or
+retail-analytics
 ```
 
 ### Custom Dataset File

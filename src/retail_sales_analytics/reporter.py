@@ -3,8 +3,8 @@ from pathlib import Path
 from typing import Optional
 import pandas as pd
 
-from src.config import EXECUTIVE_SUMMARY_REPORT
-from src.analytics import RetailAnalytics
+from .config import EXECUTIVE_SUMMARY_REPORT
+from .analytics import RetailAnalytics
 
 logger = logging.getLogger(__name__)
 

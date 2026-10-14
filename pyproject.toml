@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "retail-sales-analytics"
+version = "1.0.0"
+description = "Enterprise-ready retail sales analytics, feature engineering, and business intelligence reporting framework."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "ramanan67", email = "ramananragavan467@gmail.com" }
+]
+keywords = ["retail", "analytics", "business-intelligence", "sales", "eda", "visualization"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Office/Business :: Financial :: Point-Of-Sale",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
+dependencies = [
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    "openpyxl>=3.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[project.scripts]
+retail-sales = "retail_sales_analytics.cli:main"
+retail-analytics = "retail_sales_analytics.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["retail_sales_analytics*"]

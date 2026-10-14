@@ -6,7 +6,7 @@ import matplotlib.dates as mdates
 import seaborn as sns
 import pandas as pd
 
-from src.config import FIGURES_DIR, DEFAULT_DPI
+from .config import FIGURES_DIR, DEFAULT_DPI
 
 logger = logging.getLogger(__name__)
 

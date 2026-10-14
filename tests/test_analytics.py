@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.analytics import RetailAnalytics
+from retail_sales_analytics import RetailAnalytics
 
 
 @pytest.fixture

@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Optional, Union
 import pandas as pd
 
-from src.config import LOCAL_DATASET_PATH, EXTERNAL_DATASET_PATH
+from .config import LOCAL_DATASET_PATH, EXTERNAL_DATASET_PATH
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)

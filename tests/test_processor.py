@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from src.data_processor import (
+from retail_sales_analytics import (
     clean_and_prepare,
     engineer_features,
     get_category_subset,

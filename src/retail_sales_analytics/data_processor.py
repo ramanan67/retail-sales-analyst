@@ -4,7 +4,7 @@ from typing import List, Optional, Union
 import numpy as np
 import pandas as pd
 
-from src.config import (
+from .config import (
     HIGH_VALUE_THRESHOLD,
     CORE_TARGET_CITIES,
     PROCESSED_DATASET_CSV,
